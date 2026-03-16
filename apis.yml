@@ -1,17 +1,23 @@
+aid: zero-trust-architecture
 name: Zero Trust Architecture
 description: A security framework that requires all users and devices to be authenticated,
   authorized, and continuously validated before being granted access to applications
   and data, regardless of whether they are inside or outside the network perimeter.
   It is widely adopted across industries to safeguard digital assets and reduce security
   risks.
+type: Index
 url: https://www.nist.gov/publications/zero-trust-architecture
 tags:
-- Security
-- Network Security
-- Identity Management
-- Access Control
-- Cybersecurity
+  - Security
+  - Network Security
+  - Identity Management
+  - Access Control
+  - Cybersecurity
 created: '2025'
-modified: '2025'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 apis: []
 common: []
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
