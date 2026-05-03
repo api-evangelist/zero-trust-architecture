@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/zero-trust-architecture/blob/main/json-schema/zero-trust-architecture-identity-schema.json",
+  "title": "Zero Trust Identity",
+  "description": "JSON Schema representing a verified identity (user, device, or workload) used in Zero Trust Architecture access decisions per NIST SP 800-207.",
+  "type": "object",
+  "properties": {
+    "identityId": {
+      "type": "string",
+      "description": "Unique identifier for this identity record.",
+      "examples": ["user-abc123", "spiffe://example.com/ns/default/sa/payments-api"]
+    },
+    "type": {
+      "type": "string",
+      "description": "Category of identity.",
+      "enum": ["human", "service-account", "workload", "device", "robot"],
+      "examples": ["human"]
+    },
+    "principalName": {
+      "type": "string",
+      "description": "Primary identifier for the principal.",
+      "examples": ["alice@example.com", "api-server@payments.svc"]
+    },
+    "displayName": {
+      "type": "string",
+      "description": "Human-readable name.",
+      "examples": ["Alice Johnson", "Payments API Server"]
+    },
+    "spiffeId": {
+      "type": "string",
+      "format": "uri",
+      "description": "SPIFFE Verifiable Identity Document (SVID) URI for workloads.",
+      "examples": ["spiffe://example.com/ns/default/sa/payments-api"]
+    },
+    "idProvider": {
+      "type": "string",
+      "description": "Identity provider that authenticated this principal.",
+      "examples": ["okta", "azure-ad", "google-workspace", "spire"]
+    },
+    "authenticationMethods": {
+      "type": "array",
+      "description": "Authentication methods used for this identity.",
+      "items": {
+        "type": "string",
+        "enum": ["password", "totp", "webauthn", "hardware-token", "mtls", "svid", "saml", "oidc"]
+      },
+      "examples": [["webauthn", "oidc"]]
+    },
+    "assuranceLevel": {
+      "type": "string",
+      "description": "NIST SP 800-63 Identity Assurance Level.",
+      "enum": ["IAL1", "IAL2", "IAL3"],
+      "examples": ["IAL2"]
+    },
+    "authenticationAssuranceLevel": {
+      "type": "string",
+      "description": "NIST SP 800-63 Authentication Assurance Level.",
+      "enum": ["AAL1", "AAL2", "AAL3"],
+      "examples": ["AAL2"]
+    },
+    "device": {
+      "type": "object",
+      "description": "Device associated with this identity session.",
+      "properties": {
+        "deviceId": {
+          "type": "string",
+          "description": "Unique device identifier.",
+          "examples": ["device-xyz789"]
+        },
+        "managed": {
+          "type": "boolean",
+          "description": "Whether the device is enterprise-managed.",
+          "default": false
+        },
+        "compliant": {
+          "type": "boolean",
+          "description": "Whether the device meets security compliance requirements.",
+          "default": false
+        },
+        "platform": {
+          "type": "string",
+          "description": "Device operating system platform.",
+          "enum": ["windows", "macos", "linux", "ios", "android", "chromeos"]
+        },
+        "trustScore": {
+          "type": "integer",
+          "description": "Device trust score (0-100) from continuous monitoring.",
+          "minimum": 0,
+          "maximum": 100,
+          "examples": [85]
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "description": "Group memberships for this identity.",
+      "items": {
+        "type": "string"
+      },
+      "examples": [["engineering", "payments-team", "cloud-access"]]
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Additional identity attributes for policy evaluation.",
+      "additionalProperties": true
+    },
+    "riskScore": {
+      "type": "integer",
+      "description": "Current risk score (0-100) from behavioral analytics.",
+      "minimum": 0,
+      "maximum": 100,
+      "examples": [15]
+    },
+    "lastAuthenticated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of most recent successful authentication.",
+      "examples": ["2026-05-03T09:15:00Z"]
+    },
+    "sessionExpiry": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the current session expires and re-authentication is required.",
+      "examples": ["2026-05-03T17:15:00Z"]
+    }
+  },
+  "required": ["identityId", "type", "principalName"]
+}

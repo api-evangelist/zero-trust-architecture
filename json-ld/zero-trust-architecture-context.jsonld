@@ -1,0 +1,175 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "security": "https://w3id.org/security#",
+    "zta": "https://github.com/api-evangelist/zero-trust-architecture/blob/main/json-ld/zero-trust-architecture-context.jsonld#",
+
+    "ZeroTrustPolicy": {
+      "@id": "zta:ZeroTrustPolicy",
+      "@type": "@id"
+    },
+    "ZeroTrustIdentity": {
+      "@id": "zta:ZeroTrustIdentity",
+      "@type": "@id"
+    },
+    "ZeroTrustResource": {
+      "@id": "zta:ZeroTrustResource",
+      "@type": "@id"
+    },
+    "PolicyDecisionPoint": {
+      "@id": "zta:PolicyDecisionPoint",
+      "@type": "@id"
+    },
+    "PolicyEnforcementPoint": {
+      "@id": "zta:PolicyEnforcementPoint",
+      "@type": "@id"
+    },
+    "PolicyAdministrationPoint": {
+      "@id": "zta:PolicyAdministrationPoint",
+      "@type": "@id"
+    },
+    "WorkloadIdentity": {
+      "@id": "zta:WorkloadIdentity",
+      "@type": "@id"
+    },
+
+    "policyId": {
+      "@id": "schema:identifier"
+    },
+    "identityId": {
+      "@id": "schema:identifier"
+    },
+    "resourceId": {
+      "@id": "schema:identifier"
+    },
+    "name": {
+      "@id": "schema:name"
+    },
+    "description": {
+      "@id": "schema:description"
+    },
+    "version": {
+      "@id": "dcterms:hasVersion"
+    },
+    "effect": {
+      "@id": "zta:effect"
+    },
+    "subjects": {
+      "@id": "zta:subjects",
+      "@container": "@set"
+    },
+    "resources": {
+      "@id": "zta:resources",
+      "@container": "@set"
+    },
+    "conditions": {
+      "@id": "zta:conditions"
+    },
+    "type": {
+      "@id": "rdf:type",
+      "@type": "@id"
+    },
+    "principalName": {
+      "@id": "zta:principalName"
+    },
+    "displayName": {
+      "@id": "schema:name"
+    },
+    "spiffeId": {
+      "@id": "zta:spiffeId",
+      "@type": "@id"
+    },
+    "idProvider": {
+      "@id": "zta:identityProvider"
+    },
+    "authenticationMethods": {
+      "@id": "zta:authenticationMethods",
+      "@container": "@set"
+    },
+    "assuranceLevel": {
+      "@id": "zta:assuranceLevel"
+    },
+    "authenticationAssuranceLevel": {
+      "@id": "zta:authenticationAssuranceLevel"
+    },
+    "device": {
+      "@id": "zta:device"
+    },
+    "deviceId": {
+      "@id": "schema:identifier"
+    },
+    "managed": {
+      "@id": "zta:managed",
+      "@type": "xsd:boolean"
+    },
+    "compliant": {
+      "@id": "zta:compliant",
+      "@type": "xsd:boolean"
+    },
+    "trustScore": {
+      "@id": "zta:trustScore",
+      "@type": "xsd:integer"
+    },
+    "riskScore": {
+      "@id": "zta:riskScore",
+      "@type": "xsd:integer"
+    },
+    "sensitivity": {
+      "@id": "zta:sensitivity"
+    },
+    "environment": {
+      "@id": "zta:environment"
+    },
+    "protectionMechanisms": {
+      "@id": "zta:protectionMechanisms",
+      "@container": "@set"
+    },
+    "policyEnforcementPoint": {
+      "@id": "zta:policyEnforcementPoint"
+    },
+    "allowedActions": {
+      "@id": "zta:allowedActions",
+      "@container": "@set"
+    },
+    "complianceFrameworks": {
+      "@id": "zta:complianceFrameworks",
+      "@container": "@set"
+    },
+    "enforcementMode": {
+      "@id": "zta:enforcementMode"
+    },
+    "owner": {
+      "@id": "schema:accountablePerson"
+    },
+    "groups": {
+      "@id": "zta:groups",
+      "@container": "@set"
+    },
+    "lastAuthenticated": {
+      "@id": "zta:lastAuthenticated",
+      "@type": "xsd:dateTime"
+    },
+    "sessionExpiry": {
+      "@id": "zta:sessionExpiry",
+      "@type": "xsd:dateTime"
+    },
+    "created": {
+      "@id": "dcterms:created",
+      "@type": "xsd:date"
+    },
+    "modified": {
+      "@id": "dcterms:modified",
+      "@type": "xsd:date"
+    },
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    }
+  }
+}

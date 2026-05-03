@@ -1,0 +1,97 @@
+{
+  "name": "Zero Trust Identity",
+  "description": "Structure documenting a verified identity (user, device, or workload) used in Zero Trust Architecture access decisions per NIST SP 800-207.",
+  "properties": [
+    {
+      "name": "identityId",
+      "type": "string",
+      "description": "Unique identifier for this identity record.",
+      "required": true
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Category of identity: human, service-account, workload, device, robot.",
+      "required": true
+    },
+    {
+      "name": "principalName",
+      "type": "string",
+      "description": "Primary identifier for the principal.",
+      "required": true
+    },
+    {
+      "name": "displayName",
+      "type": "string",
+      "description": "Human-readable name.",
+      "required": false
+    },
+    {
+      "name": "spiffeId",
+      "type": "string",
+      "description": "SPIFFE Verifiable Identity Document (SVID) URI for workloads.",
+      "required": false
+    },
+    {
+      "name": "idProvider",
+      "type": "string",
+      "description": "Identity provider that authenticated this principal.",
+      "required": false
+    },
+    {
+      "name": "authenticationMethods",
+      "type": "array",
+      "description": "Authentication methods used: password, totp, webauthn, hardware-token, mtls, svid, saml, oidc.",
+      "required": false
+    },
+    {
+      "name": "assuranceLevel",
+      "type": "string",
+      "description": "NIST SP 800-63 Identity Assurance Level: IAL1, IAL2, IAL3.",
+      "required": false
+    },
+    {
+      "name": "authenticationAssuranceLevel",
+      "type": "string",
+      "description": "NIST SP 800-63 Authentication Assurance Level: AAL1, AAL2, AAL3.",
+      "required": false
+    },
+    {
+      "name": "device",
+      "type": "object",
+      "description": "Device associated with this identity session.",
+      "required": false,
+      "properties": [
+        { "name": "deviceId", "type": "string", "description": "Unique device identifier." },
+        { "name": "managed", "type": "boolean", "description": "Whether device is enterprise-managed." },
+        { "name": "compliant", "type": "boolean", "description": "Whether device meets security compliance requirements." },
+        { "name": "platform", "type": "string", "description": "Device OS: windows, macos, linux, ios, android, chromeos." },
+        { "name": "trustScore", "type": "integer", "description": "Device trust score 0-100." }
+      ]
+    },
+    {
+      "name": "groups",
+      "type": "array",
+      "description": "Group memberships for this identity.",
+      "required": false
+    },
+    {
+      "name": "riskScore",
+      "type": "integer",
+      "description": "Current risk score 0-100 from behavioral analytics.",
+      "required": false
+    },
+    {
+      "name": "lastAuthenticated",
+      "type": "string",
+      "description": "Timestamp of most recent successful authentication (ISO 8601).",
+      "required": false
+    },
+    {
+      "name": "sessionExpiry",
+      "type": "string",
+      "description": "When the current session expires (ISO 8601).",
+      "required": false
+    }
+  ]
+}

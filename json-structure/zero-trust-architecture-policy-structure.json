@@ -1,0 +1,139 @@
+{
+  "name": "Zero Trust Access Policy",
+  "description": "Structure documenting the Zero Trust access policy evaluated by a Policy Decision Point (PDP) per NIST SP 800-207.",
+  "properties": [
+    {
+      "name": "policyId",
+      "type": "string",
+      "description": "Unique identifier for this access policy.",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "description": "Human-readable name of the policy.",
+      "required": true
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Description of the policy's purpose and scope.",
+      "required": false
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "description": "Policy version in semantic versioning format.",
+      "required": false
+    },
+    {
+      "name": "effect",
+      "type": "string",
+      "description": "Whether the policy allows or denies access. Enum: allow, deny.",
+      "required": true
+    },
+    {
+      "name": "subjects",
+      "type": "array",
+      "description": "Principals (users, service accounts, workloads) this policy applies to.",
+      "required": true,
+      "items": {
+        "name": "subject",
+        "type": "object",
+        "properties": [
+          { "name": "type", "type": "string", "description": "Type of principal: user, group, service-account, workload, device." },
+          { "name": "id", "type": "string", "description": "Identifier for the principal." },
+          { "name": "attributes", "type": "object", "description": "Additional attributes for context-aware evaluation." }
+        ]
+      }
+    },
+    {
+      "name": "resources",
+      "type": "array",
+      "description": "Resources this policy governs access to.",
+      "required": true,
+      "items": {
+        "name": "resource",
+        "type": "object",
+        "properties": [
+          { "name": "type", "type": "string", "description": "Type of resource." },
+          { "name": "id", "type": "string", "description": "Resource identifier." },
+          { "name": "actions", "type": "array", "description": "Permitted HTTP methods or operations." }
+        ]
+      }
+    },
+    {
+      "name": "conditions",
+      "type": "object",
+      "description": "Contextual conditions that must be satisfied for the policy to apply.",
+      "required": false,
+      "properties": [
+        {
+          "name": "devicePosture",
+          "type": "object",
+          "description": "Device health and compliance requirements.",
+          "properties": [
+            { "name": "managed", "type": "boolean", "description": "Device must be enterprise-managed." },
+            { "name": "encryptionEnabled", "type": "boolean", "description": "Disk encryption must be enabled." },
+            { "name": "osVersion", "type": "string", "description": "Minimum required OS version." },
+            { "name": "edrInstalled", "type": "boolean", "description": "EDR agent must be installed." }
+          ]
+        },
+        {
+          "name": "network",
+          "type": "object",
+          "description": "Network location constraints.",
+          "properties": [
+            { "name": "allowedIpRanges", "type": "array", "description": "CIDR ranges from which access is permitted." },
+            { "name": "requireVpn", "type": "boolean", "description": "Whether VPN or ZTNA tunnel is required." }
+          ]
+        },
+        {
+          "name": "time",
+          "type": "object",
+          "description": "Time-based access restrictions.",
+          "properties": [
+            { "name": "allowedHours", "type": "string", "description": "Permitted access windows." }
+          ]
+        },
+        {
+          "name": "riskScore",
+          "type": "object",
+          "description": "Risk-based access threshold.",
+          "properties": [
+            { "name": "maxScore", "type": "integer", "description": "Maximum acceptable risk score 0-100." }
+          ]
+        },
+        {
+          "name": "authenticationStrength",
+          "type": "string",
+          "description": "Required authentication assurance level."
+        }
+      ]
+    },
+    {
+      "name": "enforcementMode",
+      "type": "string",
+      "description": "Whether the policy is actively enforced or audit-only. Enum: enforce, audit, disabled.",
+      "required": false
+    },
+    {
+      "name": "created",
+      "type": "string",
+      "description": "Date the policy was created (ISO 8601 date).",
+      "required": false
+    },
+    {
+      "name": "modified",
+      "type": "string",
+      "description": "Date the policy was last modified (ISO 8601 date).",
+      "required": false
+    },
+    {
+      "name": "owner",
+      "type": "string",
+      "description": "Team or individual responsible for this policy.",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/zero-trust-architecture/blob/main/json-schema/zero-trust-architecture-resource-schema.json",
+  "title": "Zero Trust Resource",
+  "description": "JSON Schema representing a protected enterprise resource in a Zero Trust Architecture deployment per NIST SP 800-207.",
+  "type": "object",
+  "properties": {
+    "resourceId": {
+      "type": "string",
+      "description": "Unique identifier for this resource.",
+      "examples": ["res-payments-api-prod", "res-hr-database-v2"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name of the resource.",
+      "examples": ["Payments API", "HR Database", "Finance S3 Bucket"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the resource and its purpose."
+    },
+    "type": {
+      "type": "string",
+      "description": "Category of the resource.",
+      "enum": ["api", "application", "database", "storage", "network-segment", "kubernetes-workload", "saas-application", "data-pipeline"],
+      "examples": ["api"]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Primary URL or endpoint of the resource.",
+      "examples": ["https://api.example.com/v1/payments"]
+    },
+    "sensitivity": {
+      "type": "string",
+      "description": "Data sensitivity classification of the resource.",
+      "enum": ["public", "internal", "confidential", "restricted", "top-secret"],
+      "examples": ["confidential"]
+    },
+    "owner": {
+      "type": "string",
+      "description": "Team or individual responsible for this resource.",
+      "examples": ["payments-team@example.com"]
+    },
+    "environment": {
+      "type": "string",
+      "description": "Deployment environment.",
+      "enum": ["production", "staging", "development", "disaster-recovery"],
+      "examples": ["production"]
+    },
+    "protectionMechanisms": {
+      "type": "array",
+      "description": "Security controls protecting this resource.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "mtls",
+          "oauth2",
+          "api-key",
+          "ip-allowlist",
+          "waf",
+          "ddos-protection",
+          "encryption-at-rest",
+          "encryption-in-transit",
+          "pep-gateway",
+          "service-mesh"
+        ]
+      },
+      "examples": [["mtls", "oauth2", "waf", "encryption-in-transit"]]
+    },
+    "policyEnforcementPoint": {
+      "type": "object",
+      "description": "Policy Enforcement Point protecting this resource.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of PEP.",
+          "enum": ["api-gateway", "service-mesh-proxy", "ztna-connector", "cloud-load-balancer", "sidecar-proxy"]
+        },
+        "vendor": {
+          "type": "string",
+          "description": "Vendor or project providing the PEP.",
+          "examples": ["Envoy Proxy", "Kong", "AWS API Gateway", "Cloudflare Access"]
+        }
+      }
+    },
+    "allowedActions": {
+      "type": "array",
+      "description": "HTTP methods or actions permitted on this resource.",
+      "items": {
+        "type": "string"
+      },
+      "examples": [["GET", "POST", "PATCH", "DELETE"]]
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags for resource categorization.",
+      "items": {
+        "type": "string"
+      },
+      "examples": [["payments", "pci-dss", "critical"]]
+    },
+    "complianceFrameworks": {
+      "type": "array",
+      "description": "Regulatory compliance frameworks applicable to this resource.",
+      "items": {
+        "type": "string",
+        "enum": ["pci-dss", "hipaa", "fedramp", "soc2", "gdpr", "nist-csf", "cmmc"]
+      },
+      "examples": [["pci-dss", "soc2"]]
+    },
+    "created": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the resource record was created.",
+      "examples": ["2026-05-03"]
+    },
+    "modified": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the resource record was last modified.",
+      "examples": ["2026-05-03"]
+    }
+  },
+  "required": ["resourceId", "name", "type", "sensitivity"]
+}

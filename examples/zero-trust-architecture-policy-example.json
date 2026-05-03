@@ -1,0 +1,47 @@
+{
+  "policyId": "ztpol-api-access-payments-prod",
+  "name": "Payments API Production Access Policy",
+  "description": "Zero Trust policy controlling access to the Payments API in production. Requires phishing-resistant MFA, compliant managed device, and risk score below 30.",
+  "version": "2.0.0",
+  "effect": "allow",
+  "subjects": [
+    {
+      "type": "group",
+      "id": "payments-engineers",
+      "attributes": {
+        "department": "Engineering",
+        "clearanceLevel": "confidential"
+      }
+    }
+  ],
+  "resources": [
+    {
+      "type": "api",
+      "id": "https://api.example.com/v1/payments",
+      "actions": ["GET", "POST"]
+    },
+    {
+      "type": "api",
+      "id": "https://api.example.com/v1/payments/{paymentId}",
+      "actions": ["GET", "PATCH"]
+    }
+  ],
+  "conditions": {
+    "devicePosture": {
+      "managed": true,
+      "encryptionEnabled": true,
+      "edrInstalled": true
+    },
+    "authenticationStrength": "phishing-resistant-mfa",
+    "riskScore": {
+      "maxScore": 30
+    },
+    "time": {
+      "allowedHours": "Mon-Fri 06:00-22:00 UTC"
+    }
+  },
+  "enforcementMode": "enforce",
+  "created": "2026-01-15",
+  "modified": "2026-05-03",
+  "owner": "security-team@example.com"
+}

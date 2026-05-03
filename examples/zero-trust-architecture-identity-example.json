@@ -1,0 +1,25 @@
+{
+  "identityId": "user-alice-johnson-0042",
+  "type": "human",
+  "principalName": "alice.johnson@example.com",
+  "displayName": "Alice Johnson",
+  "idProvider": "okta",
+  "authenticationMethods": ["webauthn", "oidc"],
+  "assuranceLevel": "IAL2",
+  "authenticationAssuranceLevel": "AAL3",
+  "device": {
+    "deviceId": "device-macpro-alicejohnson-001",
+    "managed": true,
+    "compliant": true,
+    "platform": "macos",
+    "trustScore": 92
+  },
+  "groups": [
+    "engineering",
+    "payments-engineers",
+    "cloud-access-production"
+  ],
+  "riskScore": 8,
+  "lastAuthenticated": "2026-05-03T09:15:00Z",
+  "sessionExpiry": "2026-05-03T17:15:00Z"
+}

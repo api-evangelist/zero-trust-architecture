@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/zero-trust-architecture/blob/main/json-schema/zero-trust-architecture-policy-schema.json",
+  "title": "Zero Trust Access Policy",
+  "description": "JSON Schema representing a Zero Trust access policy evaluated by a Policy Decision Point (PDP) per NIST SP 800-207.",
+  "type": "object",
+  "properties": {
+    "policyId": {
+      "type": "string",
+      "description": "Unique identifier for this access policy.",
+      "examples": ["ztpol-001", "api-access-policy-v2"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name of the policy.",
+      "examples": ["API Gateway Least-Privilege Policy", "Remote Worker Cloud Access"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the policy's purpose and scope."
+    },
+    "version": {
+      "type": "string",
+      "description": "Policy version in semantic versioning format.",
+      "examples": ["1.0.0", "2.3.1"]
+    },
+    "effect": {
+      "type": "string",
+      "description": "Whether the policy allows or denies access.",
+      "enum": ["allow", "deny"],
+      "examples": ["allow"]
+    },
+    "subjects": {
+      "type": "array",
+      "description": "Principals (users, service accounts, workloads) this policy applies to.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of principal.",
+            "enum": ["user", "group", "service-account", "workload", "device"]
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier for the principal.",
+            "examples": ["alice@example.com", "spiffe://example.com/ns/default/sa/api-server"]
+          },
+          "attributes": {
+            "type": "object",
+            "description": "Additional attributes for context-aware evaluation.",
+            "additionalProperties": true
+          }
+        },
+        "required": ["type", "id"]
+      }
+    },
+    "resources": {
+      "type": "array",
+      "description": "Resources this policy governs access to.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of resource.",
+            "enum": ["api", "database", "storage", "application", "network-segment", "kubernetes-namespace"]
+          },
+          "id": {
+            "type": "string",
+            "description": "Resource identifier.",
+            "examples": ["https://api.example.com/v1/payments", "arn:aws:s3:::sensitive-bucket"]
+          },
+          "actions": {
+            "type": "array",
+            "description": "Permitted HTTP methods or operations.",
+            "items": {
+              "type": "string"
+            },
+            "examples": [["GET", "POST"], ["read", "list"]]
+          }
+        },
+        "required": ["type", "id"]
+      }
+    },
+    "conditions": {
+      "type": "object",
+      "description": "Contextual conditions that must be satisfied for the policy to apply.",
+      "properties": {
+        "devicePosture": {
+          "type": "object",
+          "description": "Device health and compliance requirements.",
+          "properties": {
+            "managed": {
+              "type": "boolean",
+              "description": "Device must be enterprise-managed."
+            },
+            "encryptionEnabled": {
+              "type": "boolean",
+              "description": "Device disk encryption must be enabled."
+            },
+            "osVersion": {
+              "type": "string",
+              "description": "Minimum required OS version.",
+              "examples": ["Windows 11", "macOS 14.0"]
+            },
+            "edrInstalled": {
+              "type": "boolean",
+              "description": "Endpoint detection and response agent must be installed."
+            }
+          }
+        },
+        "network": {
+          "type": "object",
+          "description": "Network location constraints.",
+          "properties": {
+            "allowedIpRanges": {
+              "type": "array",
+              "description": "CIDR ranges from which access is permitted.",
+              "items": {
+                "type": "string",
+                "examples": ["10.0.0.0/8", "203.0.113.0/24"]
+              }
+            },
+            "requireVpn": {
+              "type": "boolean",
+              "description": "Whether VPN or ZTNA tunnel is required.",
+              "default": false
+            }
+          }
+        },
+        "time": {
+          "type": "object",
+          "description": "Time-based access restrictions.",
+          "properties": {
+            "allowedHours": {
+              "type": "string",
+              "description": "Cron-style or ISO 8601 interval specifying permitted access windows.",
+              "examples": ["09:00-17:00 UTC", "Mon-Fri 08:00-20:00 EST"]
+            }
+          }
+        },
+        "riskScore": {
+          "type": "object",
+          "description": "Risk-based access threshold from continuous monitoring.",
+          "properties": {
+            "maxScore": {
+              "type": "integer",
+              "description": "Maximum acceptable risk score (0-100).",
+              "minimum": 0,
+              "maximum": 100,
+              "examples": [40]
+            }
+          }
+        },
+        "authenticationStrength": {
+          "type": "string",
+          "description": "Required authentication assurance level.",
+          "enum": ["password", "mfa", "phishing-resistant-mfa", "hardware-token"],
+          "examples": ["phishing-resistant-mfa"]
+        }
+      }
+    },
+    "enforcementMode": {
+      "type": "string",
+      "description": "Whether the policy is actively enforced or in audit-only mode.",
+      "enum": ["enforce", "audit", "disabled"],
+      "default": "enforce"
+    },
+    "created": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the policy was created.",
+      "examples": ["2026-05-03"]
+    },
+    "modified": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the policy was last modified.",
+      "examples": ["2026-05-03"]
+    },
+    "owner": {
+      "type": "string",
+      "description": "Team or individual responsible for this policy.",
+      "examples": ["security-team@example.com"]
+    }
+  },
+  "required": ["policyId", "name", "effect", "subjects", "resources"]
+}

@@ -1,0 +1,102 @@
+name: Zero Trust Architecture Vocabulary
+description: >-
+  Vocabulary for Zero Trust Architecture (ZTA) defining the normative terms, concepts,
+  roles, and principles from NIST SP 800-207 and related standards. Covers the core
+  architectural components, identity concepts, policy model, and implementation patterns
+  used in ZTA deployments across enterprise and cloud environments.
+version: '1.0.0'
+created: '2026-05-03'
+modified: '2026-05-03'
+resources:
+  - name: Policy
+    description: An access control rule evaluated by the Policy Decision Point to allow or deny a subject's access to a resource.
+  - name: Subject
+    description: A principal (user, device, workload, or service account) requesting access to a protected resource.
+  - name: Resource
+    description: A protected enterprise asset such as an API, application, database, or data storage service.
+  - name: Session
+    description: A time-bounded access grant issued by the PDP after verifying all zero trust conditions.
+  - name: Identity
+    description: A cryptographically verified representation of a user, device, or workload used for authentication.
+  - name: Device
+    description: An endpoint (laptop, mobile, server, IoT device) that must be assessed for compliance before access.
+  - name: Workload
+    description: A software component (container, serverless function, VM, or microservice) with a cryptographic identity.
+  - name: SVID
+    description: SPIFFE Verifiable Identity Document — a short-lived cryptographic credential issued to a workload by SPIRE.
+actions:
+  - name: Authenticate
+    description: Verify the identity of a subject using one or more authentication factors.
+  - name: Authorize
+    description: Determine whether an authenticated subject is permitted to access a specific resource.
+  - name: Evaluate
+    description: Assess a policy against context including identity, device posture, risk score, and time conditions.
+  - name: Enforce
+    description: Apply the policy decision at the Policy Enforcement Point to allow or block the request.
+  - name: Monitor
+    description: Continuously observe network traffic, user behavior, and device health for anomalies.
+  - name: Attest
+    description: Verify a workload's identity and environment integrity through platform attestation.
+  - name: Rotate
+    description: Periodically replace short-lived credentials (SVIDs, tokens) to limit compromise exposure.
+  - name: Revoke
+    description: Immediately invalidate an identity, session, or credential when a threat is detected.
+workflows:
+  - name: Access Request Workflow
+    description: >-
+      Subject sends request → PEP intercepts → PDP evaluates identity, device, and
+      risk conditions → PDP issues allow/deny → PEP enforces decision → session established.
+  - name: Workload Authentication Workflow
+    description: >-
+      Workload contacts SPIRE agent → SPIRE attests workload identity → SVID issued →
+      workload presents SVID for mTLS → peer workload validates SVID → connection established.
+  - name: Continuous Risk Assessment Workflow
+    description: >-
+      Behavioral analytics engine monitors session activity → risk score updated →
+      if risk exceeds threshold → PDP issues step-up authentication challenge or revokes session.
+personas:
+  - name: Security Architect
+    description: Designs the overall ZTA deployment model, selects components, and defines the policy framework.
+  - name: IAM Engineer
+    description: Configures identity providers, manages user lifecycle, and enforces authentication policies.
+  - name: Platform Engineer
+    description: Deploys and operates SPIRE, service mesh, and PEP components in Kubernetes and cloud environments.
+  - name: Policy Administrator
+    description: Writes and manages access policies in the Policy Administration Point.
+  - name: SOC Analyst
+    description: Monitors alerts from continuous monitoring, investigates anomalous behavior, and triggers remediation.
+  - name: Compliance Officer
+    description: Maps ZTA controls to regulatory requirements such as FedRAMP, CMMC, and PCI-DSS.
+concepts:
+  - name: Never Trust Always Verify
+    description: Core ZTA principle requiring explicit verification of every access request regardless of network origin.
+  - name: Least Privilege
+    description: Granting minimum required access permissions for the minimum required time.
+  - name: Microsegmentation
+    description: Dividing networks into small zones to contain breaches and prevent lateral movement.
+  - name: Implicit Trust Elimination
+    description: Removing any assumption that users or devices inside the corporate network are inherently trustworthy.
+  - name: Policy Decision Point (PDP)
+    description: Centralized component that evaluates access policies and issues allow/deny decisions.
+  - name: Policy Enforcement Point (PEP)
+    description: Proxy or gateway that enforces PDP decisions by allowing or blocking network requests.
+  - name: Policy Administration Point (PAP)
+    description: Interface through which security administrators define and manage access policies.
+  - name: Policy Information Point (PIP)
+    description: Data source providing identity, device, threat intelligence, and context to the PDP for evaluation.
+  - name: Implicit Trust Zone
+    description: A legacy network segment where all traffic is trusted by default — eliminated in ZTA.
+  - name: Control Plane
+    description: The ZTA management layer consisting of PDP, PAP, and identity infrastructure.
+  - name: Data Plane
+    description: The ZTA enforcement layer where PEPs intercept and control resource access.
+  - name: Identity Assurance Level (IAL)
+    description: NIST SP 800-63 classification of identity proofing strength from IAL1 (self-asserted) to IAL3 (in-person).
+  - name: Authentication Assurance Level (AAL)
+    description: NIST SP 800-63 classification of authentication strength from AAL1 (password) to AAL3 (hardware token).
+  - name: SPIFFE ID
+    description: A URI (spiffe://trust-domain/path) uniquely identifying a workload across environments.
+  - name: mTLS
+    description: Mutual TLS requiring both client and server to present certificates for authentication.
+  - name: Rego
+    description: The declarative policy language used by Open Policy Agent to express access control rules.
