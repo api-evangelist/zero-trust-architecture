@@ -1,0 +1,114 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Zero Trust Architecture
+providerId: zero-trust-architecture
+created: '2026-05-04'
+modified: '2026-05-04'
+tags:
+  - Access Control
+  - Authentication
+  - Authorization
+  - Cybersecurity
+  - Identity Management
+  - Least Privilege
+  - Network Security
+  - NIST
+  - Security
+  - Zero Trust
+  - Rate Limiting
+  - Quotas
+  - Throttling
+description: Machine-readable rate limit definitions for the Zero Trust Architecture API surface. Captures
+  per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values
+  to be replaced with published provider limits.
+headers:
+  limit: X-RateLimit-Limit
+  remaining: X-RateLimit-Remaining
+  reset: X-RateLimit-Reset
+  retryAfter: Retry-After
+  policy: RateLimit-Policy
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+  serviceUnavailable: 503
+limits:
+  - tier: free
+    name: Free Tier Default
+    scope: api-key
+    metric: requests_per_minute
+    limit: 10
+    burst: 20
+    timeFrame: minute
+    applies:
+      - NIST SP 800-207 Zero Trust Architecture
+      - NIST SP 800-207A ZTA for Cloud-Native Applications
+      - SPIFFE - Secure Production Identity Framework for Everyone
+      - SPIRE - SPIFFE Runtime Environment
+      - Open Policy Agent (OPA)
+  - tier: free
+    name: Free Tier Monthly Quota
+    scope: api-key
+    metric: requests_per_month
+    limit: 1000
+    timeFrame: month
+    applies:
+      - NIST SP 800-207 Zero Trust Architecture
+      - NIST SP 800-207A ZTA for Cloud-Native Applications
+      - SPIFFE - Secure Production Identity Framework for Everyone
+      - SPIRE - SPIFFE Runtime Environment
+      - Open Policy Agent (OPA)
+  - tier: professional
+    name: Professional Tier Default
+    scope: api-key
+    metric: requests_per_minute
+    limit: 100
+    burst: 200
+    timeFrame: minute
+    applies:
+      - NIST SP 800-207 Zero Trust Architecture
+      - NIST SP 800-207A ZTA for Cloud-Native Applications
+      - SPIFFE - Secure Production Identity Framework for Everyone
+      - SPIRE - SPIFFE Runtime Environment
+      - Open Policy Agent (OPA)
+  - tier: professional
+    name: Professional Tier Monthly Quota
+    scope: api-key
+    metric: requests_per_month
+    limit: 100000
+    timeFrame: month
+    applies:
+      - NIST SP 800-207 Zero Trust Architecture
+      - NIST SP 800-207A ZTA for Cloud-Native Applications
+      - SPIFFE - Secure Production Identity Framework for Everyone
+      - SPIRE - SPIFFE Runtime Environment
+      - Open Policy Agent (OPA)
+  - tier: enterprise
+    name: Enterprise Negotiated Limit
+    scope: contract
+    metric: requests_per_minute
+    limit: 1000
+    burst: 5000
+    timeFrame: minute
+    applies:
+      - NIST SP 800-207 Zero Trust Architecture
+      - NIST SP 800-207A ZTA for Cloud-Native Applications
+      - SPIFFE - Secure Production Identity Framework for Everyone
+      - SPIRE - SPIFFE Runtime Environment
+      - Open Policy Agent (OPA)
+policies:
+  - name: Backoff Strategy
+    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
+      when present.
+  - name: Burst Handling
+    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
+      before throttling engages.
+  - name: Quota Reset
+    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
+      windows reset on a sliding-window basis.
+  - name: Fair Use
+    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
+      may be subject to fair-use throttling.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
