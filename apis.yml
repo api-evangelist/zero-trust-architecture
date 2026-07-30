@@ -1,4 +1,17 @@
 aid: zero-trust-architecture
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/zero-trust-architecture.png
 name: Zero Trust Architecture
 description: >-
   Zero Trust Architecture (ZTA) is a security framework defined by NIST SP 800-207 that
