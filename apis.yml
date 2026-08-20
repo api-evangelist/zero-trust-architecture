@@ -84,6 +84,13 @@ apis:
     tags:
       - CNCF
       - Identity
+      - Open-Source
+      - Standards
+      - Workload Identity
+      - Zero Trust
+    tags_raw:
+      - CNCF
+      - Identity
       - Open Source
       - Standards
       - Workload Identity
@@ -104,6 +111,12 @@ apis:
     tags:
       - CNCF
       - Identity
+      - Open-Source
+      - Runtime
+      - Zero Trust
+    tags_raw:
+      - CNCF
+      - Identity
       - Open Source
       - Runtime
       - Zero Trust
@@ -122,6 +135,12 @@ apis:
       written in the Rego language.
     humanURL: https://www.openpolicyagent.org/
     tags:
+      - Authorization
+      - CNCF
+      - Open-Source
+      - Policy Engine
+      - Zero Trust
+    tags_raw:
       - Authorization
       - CNCF
       - Open Source
