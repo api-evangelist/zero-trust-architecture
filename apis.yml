@@ -95,7 +95,7 @@ apis:
     tags:
       - CNCF
       - Identity
-      - Open-Source
+      - Open Source
       - Standards
       - Workload Identity
       - Zero Trust
@@ -106,6 +106,7 @@ apis:
       - Standards
       - Workload Identity
       - Zero Trust
+      - Open-Source
     properties:
       - type: Documentation
         url: https://spiffe.io/docs/latest/
@@ -122,7 +123,7 @@ apis:
     tags:
       - CNCF
       - Identity
-      - Open-Source
+      - Open Source
       - Runtime
       - Zero Trust
     tags_raw:
@@ -131,6 +132,7 @@ apis:
       - Open Source
       - Runtime
       - Zero Trust
+      - Open-Source
     properties:
       - type: Documentation
         url: https://spiffe.io/docs/latest/spire-about/
@@ -148,7 +150,7 @@ apis:
     tags:
       - Authorization
       - CNCF
-      - Open-Source
+      - Open Source
       - Policy Engine
       - Zero Trust
     tags_raw:
@@ -157,6 +159,7 @@ apis:
       - Open Source
       - Policy Engine
       - Zero Trust
+      - Open-Source
     properties:
       - type: Documentation
         url: https://www.openpolicyagent.org/docs/latest/
