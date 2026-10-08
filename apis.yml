@@ -166,6 +166,12 @@ apis:
       - type: GitHubOrganization
         url: https://github.com/open-policy-agent
 common:
+  - type: Plans
+    url: plans/zero-trust-architecture-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/zero-trust-architecture-rate-limits.yml
+  - type: FinOps
+    url: finops/zero-trust-architecture-finops.yml
   - type: VulnerabilityDisclosure
     url: security/zero-trust-architecture-vulnerability-disclosure.yml
   - type: DomainSecurity
